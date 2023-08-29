@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgresdb:
+    restart: always
+    image: postgres:latest
+    container_name: tgdb
+    environment:
+      POSTGRES_DB: "galactus"
+      POSTGRES_USER: "tcc"
+      POSTGRES_PASSWORD: "galactus"
+      PGADMIN_DEFAULT_EMAIL: "galactus@tcc.com"
+      PGADMIN_DEFAULT_PASSWORD: "galactus"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: tgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "galactus@tcc.com"
+      PGADMIN_DEFAULT_PASSWORD: "galactus"
+    ports:
+      - "8082:80"
+    depends_on:
+      - postgresdb
+    networks:
+      - db
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  pgdata:
