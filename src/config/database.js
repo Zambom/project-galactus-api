@@ -4,8 +4,6 @@ const config = require('./config')[env]
 
 let sequelize = null
 
-console.log(config)
-
 if (config.use_env_sequelize) {
     sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
