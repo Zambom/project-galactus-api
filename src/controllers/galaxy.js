@@ -34,7 +34,8 @@ class GalaxyController {
                 include: [
                     {
                         model: model.sequelize.models.StarSystem,
-                        as: "star_systems"
+                        as: "star_systems",
+                        attributes: ["id", "name", "parameters"]
                     }
                 ]
             })
