@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 
         res.status(200).send({ data: instances })
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({ message: "Erro interno", error: error.message })
     }
 })
 
@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
         res.status(201).send({ data: instance })
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({ message: "Erro interno", error: error.message })
     }
 })
 
@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
 
         res.status(200).send({ data: instance })
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({ message: "Erro interno", error: error.message })
     }
 })
 
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
 
         res.status(200).send({ data: instance })
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({ message: "Erro interno", error: error.message })
     }
 })
 
@@ -60,7 +60,7 @@ router.delete('/:id', async (req, res) => {
 
         res.status(204).send()
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send({ message: "Erro interno", error: error.message })
     }
 })
 

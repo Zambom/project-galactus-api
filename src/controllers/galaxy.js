@@ -1,4 +1,5 @@
 const model = require('../models')
+const { Sequelize } = require('sequelize') 
 
 class GalaxyController {
     async Create(data) {
@@ -29,7 +30,14 @@ class GalaxyController {
 
     async Get(id) {
         try {
-            const instance = model.sequelize.models.Galaxy.findByPk(id)
+            const instance = model.sequelize.models.Galaxy.findByPk(id, {
+                include: [
+                    {
+                        model: model.sequelize.models.StarSystem,
+                        as: "star_systems"
+                    }
+                ]
+            })
 
             return instance
         } catch (error) {
@@ -39,7 +47,23 @@ class GalaxyController {
 
     async List() {
         try {
-            const instances = model.sequelize.models.Galaxy.findAll()
+            const instances = model.sequelize.models.Galaxy.findAll({
+                attributes: {
+                    include: [
+                        [
+                            Sequelize.fn("COUNT", Sequelize.col("star_systems.*")), "starsCount"
+                        ]
+                    ]
+                },
+                include: [
+                    {
+                        model: model.sequelize.models.StarSystem,
+                        as: "star_systems",
+                        attributes: []
+                    }
+                ],
+                group: ['Galaxy.id']
+            })
 
             return instances
         } catch (error) {
