@@ -3,7 +3,7 @@ const model = require('../models')
 class StarSystemController {
     async Create(data) {
         try {
-            const instance = await model.sequelize.models.StarSystem.Create({
+            const instance = await model.sequelize.models.StarSystem.create({
                 name: data.name,
                 description: data.description,
                 parameters: data.parameters,
@@ -18,7 +18,7 @@ class StarSystemController {
 
     async Update(id, data) {
         try {
-            const instance = await model.sequelize.models.StarSystem.Update(data, {
+            const instance = await model.sequelize.models.StarSystem.update(data, {
                 where: { id }
             })
 
