@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class StarSystem extends Model {
+  class Planet extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,24 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Galaxy, {
-        foreignKey: "galaxy_id",
-        as: "galaxy"
-      })
-
-      this.hasMany(models.Planets, {
+      this.belongsTo(models.StarSystem, {
         foreignKey: "star_id",
-        as: "planets"
+        as: "star_system"
       })
     }
   }
-  StarSystem.init({
+  Planet.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    article: DataTypes.STRING,
+    page: DataTypes.STRING,
     parameters: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'StarSystem',
+    modelName: 'Planet',
   });
-  return StarSystem;
+  return Planet;
 };
