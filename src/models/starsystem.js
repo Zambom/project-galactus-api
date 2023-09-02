@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "galaxy"
       })
 
-      this.hasMany(models.Planets, {
+      this.hasMany(models.Planet, {
         foreignKey: "star_id",
         as: "planets"
       })
