@@ -4,7 +4,7 @@ const config = require('./config')[env]
 
 let sequelize = null
 
-if (config.use_env_sequelize) {
+if (config.use_env_variable) {
     sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         protocol: 'postgres',
