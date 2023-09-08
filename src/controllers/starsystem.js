@@ -89,6 +89,22 @@ class StarSystemController {
             throw new Error(error)
         }
     }
+
+    async UpdateParameters(data) {
+        try {
+            console.log('data', data)
+            const instances = model.sequelize.models.StarSystem.bulkCreate(
+                data,
+                {
+                    updateOnDuplicate: ['parameters']
+                }
+            )
+
+            return instances
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 module.exports = StarSystemController
