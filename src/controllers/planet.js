@@ -68,6 +68,22 @@ class PlanetController {
             throw new Error(error)
         }
     }
+
+    async UpdateParameters(data) {
+        try {
+            console.log('data', data)
+            const instances = model.sequelize.models.Planet.bulkCreate(
+                data,
+                {
+                    updateOnDuplicate: ['parameters']
+                }
+            )
+
+            return instances
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 module.exports = PlanetController
