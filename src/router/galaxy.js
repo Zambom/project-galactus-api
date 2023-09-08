@@ -39,6 +39,18 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.put('/add-parameters', async (req, res) => {
+    try {
+        const { data } = req.body
+        
+        const instances = await controller.UpdateParameters(data)
+
+        res.status(200).send({ data: instances })
+    } catch (error) {
+        res.status(500).send({ message: "Error interno", error: error.message })
+    }
+})
+
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params
