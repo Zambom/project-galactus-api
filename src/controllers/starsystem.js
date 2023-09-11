@@ -52,9 +52,10 @@ class StarSystemController {
         }
     }
 
-    async List() {
+    async List(conditions) {
         try {
             const instances = await model.sequelize.models.StarSystem.findAll({
+                where: conditions,
                 attributes: {
                     include: [
                         [
