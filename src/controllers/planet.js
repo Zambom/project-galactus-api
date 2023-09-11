@@ -47,9 +47,11 @@ class PlanetController {
         }
     }
 
-    async List() {
+    async List(conditions) {
         try {
-            const instances = await model.sequelize.models.Planet.findAll()
+            const instances = await model.sequelize.models.Planet.findAll({
+                where: conditions
+            })
 
             return instances
         } catch (error) {

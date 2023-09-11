@@ -7,7 +7,14 @@ const router = Router()
 
 router.get('/', async (req, res) => {
     try {
-        const instances = await controller.List()
+        const { star_id } = req.query
+        let conditions = {}
+
+        if (star_id) {
+            conditions = { star_id }
+        }
+
+        const instances = await controller.List(conditions)
 
         res.status(200).send({ data: instances })
     } catch (error) {
