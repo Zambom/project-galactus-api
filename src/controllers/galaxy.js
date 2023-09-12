@@ -1,5 +1,6 @@
 const model = require('../models')
 const { Sequelize } = require('sequelize') 
+const processFile = require('../services/csvprocesser')
 
 class GalaxyController {
     async Create(data) {
@@ -97,6 +98,22 @@ class GalaxyController {
             return instances
         } catch (error) {
             throw new Error(error)
+        }
+    }
+
+    async batchInsert(filename) {
+        try {
+            const headers = ["name", "description"]
+
+            const records = await processFile(filename, headers)
+
+            const instances = model.sequelize.models.Galaxy.bulkCreate(
+                records
+            )
+            
+            return instances
+        } catch (error) {
+            console.error("Something went wrong: ", error.message)
         }
     }
 }
