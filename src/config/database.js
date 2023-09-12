@@ -16,10 +16,8 @@ if (config.use_env_variable) {
         },
         logging: false,
         define: {
-            timestamps: true,
-            underscored: true
-        },
-        quoteIdentifiers: false
+            timestamps: true
+        }
     })
 } else {
     sequelize = new Sequelize(
