@@ -1,4 +1,6 @@
+const { Sequelize, Op } = require('sequelize')
 const model = require('../models')
+const processFile = require('../services/csvprocesser')
 
 class PlanetController {
     async Create(data) {
@@ -84,6 +86,55 @@ class PlanetController {
             return instances
         } catch (error) {
             throw new Error(error)
+        }
+    }
+
+    async batchInsert(filename) {
+        try {
+            const headers = ["name", "galaxy", "star", "description", "input", "output", "article", "page"]
+
+            const records = await processFile(filename, headers)
+
+            const stars = Array.from(new Set(records.map(el => `${el.star} - ${el.galaxy}`)))
+
+            const stars_ids = await model.sequelize.models.StarSystem.findAll({
+                attributes: [
+                    [Sequelize.fn('MIN', Sequelize.col('StarSystem.id')), 'id'],
+                    [Sequelize.fn('CONCAT', Sequelize.col("StarSystem.name"), ' - ', Sequelize.col("galaxy.name")), 'star']
+                ],
+                group: 'star',
+                where: Sequelize.where(
+                    Sequelize.fn('CONCAT', Sequelize.col("StarSystem.name"), ' - ', Sequelize.col("galaxy.name")), {
+                        [Op.in]:  stars
+                    }
+                ),
+                include: [
+                    {
+                        model: model.sequelize.models.Galaxy,
+                        as: "galaxy",
+                        attributes: []
+                    }
+                ],
+                raw: true
+            })
+            
+            const data = records.map(el => {
+                return {
+                    name: el.name,
+                    description: el.description,
+                    article: el.article,
+                    page: el.page,
+                    star_id: stars_ids.filter(e => e.star === `${el.star} - ${el.galaxy}`)[0].id
+                }
+            })
+            
+            const instances = model.sequelize.models.Planet.bulkCreate(
+                data
+            )
+            
+            return instances
+        } catch (error) {
+            console.error("Something went wrong: ", error.message)
         }
     }
 }

@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const PlanetController = require('../controllers/planet')
+const upload = require('../middlewares/upload')
 
 const controller = new PlanetController()
 
@@ -39,6 +40,12 @@ router.post('/', async (req, res) => {
     } catch (error) {
         res.status(500).send({ message: "Erro interno", error: error.message })
     }
+})
+
+router.post('/batch', upload.single('csv'), async (req, res) => {
+    controller.batchInsert(`uploads/${req.file.filename}`)
+
+    res.status(200).send({ message: 'Processo iniciado.' })
 })
 
 router.get('/:id', async (req, res) => {
