@@ -2,6 +2,31 @@
 const {
   Model
 } = require('sequelize');
+
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Galaxy:
+ *      type: object
+ *      description: Representação das categorias da taxonomia dos modelos de IA gerativa.
+ *      required:
+ *        - name
+ *        - description
+ *      properties:
+ *        id:
+ *          type: integer
+ *          description: Identificador auto gerado da galáxia
+ *        name:
+ *          type: string
+ *          description: Nome da galáxia
+ *        description:
+ *          type: string
+ *          description: Breve descrição do que a galáxia representa
+ *        parameters:
+ *          type: string
+ *          description: Parâmetros utilizados para renderização do objeto 3D que representa essa galáxia na aplicação
+ */
 module.exports = (sequelize, DataTypes) => {
   class Galaxy extends Model {
     /**
