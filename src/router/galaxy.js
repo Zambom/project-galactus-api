@@ -266,7 +266,7 @@ router.get('/', async (req, res) => {
   try {
     const instances = await controller.List()
 
-    res.status(201).send({ data: instances })
+    res.status(200).send({ data: instances })
   } catch (error) {
     res.status(500).send({ message: "Erro interno", error: error.message })
   }

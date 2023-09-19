@@ -26,6 +26,14 @@ const {
  *        parameters:
  *          type: string
  *          description: Parâmetros utilizados para renderização do objeto 3D que representa essa categoria na aplicação
+ *        createdAt:
+ *          type: string
+ *          format: datetime
+ *          description: Data de cadastro
+ *        updatedAt:
+ *          type: string
+ *          format: datetime
+ *          description: Data da última atualização
  */
 module.exports = (sequelize, DataTypes) => {
   class Galaxy extends Model {
