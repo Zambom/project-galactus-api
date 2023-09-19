@@ -16,16 +16,16 @@ const {
  *      properties:
  *        id:
  *          type: integer
- *          description: Identificador auto gerado da galáxia
+ *          description: Identificador auto gerado da categoria
  *        name:
  *          type: string
- *          description: Nome da galáxia
+ *          description: Nome da categoria
  *        description:
  *          type: string
- *          description: Breve descrição do que a galáxia representa
+ *          description: Breve descrição do que a categoria representa
  *        parameters:
  *          type: string
- *          description: Parâmetros utilizados para renderização do objeto 3D que representa essa galáxia na aplicação
+ *          description: Parâmetros utilizados para renderização do objeto 3D que representa essa categoria na aplicação
  */
 module.exports = (sequelize, DataTypes) => {
   class Galaxy extends Model {

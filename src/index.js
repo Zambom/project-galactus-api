@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const database = require('./config/database')
+const swaggerUi = require('swagger-ui-express')
 const router = require('./router')
 
 const app = express()
@@ -10,6 +11,7 @@ const configExpress = () => {
     app.use(express.json({ limit: '50mb' }))
     app.use(express.static('public'))
     app.use(express.urlencoded({ extended: true, limit: '50mb' }))
+    app.use('/', swaggerUi.serve)
     app.use('/', router)
 
     return app

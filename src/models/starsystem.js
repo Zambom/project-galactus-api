@@ -2,6 +2,35 @@
 const {
   Model
 } = require('sequelize');
+
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    StarSystem:
+ *      type: object
+ *      description: Representação das subcategorias da taxonomia dos modelos de IA gerativa.
+ *      required:
+ *        - name
+ *        - description
+ *        - galaxy_id
+ *      properties:
+ *        id:
+ *          type: integer
+ *          description: Identificador auto gerado da subcategoria
+ *        name:
+ *          type: string
+ *          description: Nome da subcategoria
+ *        description:
+ *          type: string
+ *          description: Breve descrição do que a subcategoria representa
+ *        galaxy_id:
+ *          type: integer
+ *          description: Identificador da categoria onde essa subcategoria está inserida
+ *        parameters:
+ *          type: string
+ *          description: Parâmetros utilizados para renderização do objeto 3D que representa essa subcategoria na aplicação
+ */
 module.exports = (sequelize, DataTypes) => {
   class StarSystem extends Model {
     /**

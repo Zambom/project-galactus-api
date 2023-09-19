@@ -11,8 +11,6 @@ const planets = require('./planet')
 const router = Router()
 const specs = swaggerJsdoc(swagger)
 
-router.use('/', swaggerUi.serve)
-
 router.get('/', swaggerUi.setup(specs))
 router.use('/galaxies', galaxies)
 router.use('/star-systems', stars)
